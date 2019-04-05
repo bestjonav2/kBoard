@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" ng-app='kanbanApp'>
+	<head>
+		<meta charset="UTF-8">
+		<script src="js/angular.js" > </script>
+		<script src="js/app.js"></script>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/app.css">
+		<title>k-Board</title>
+	</head>
+	<body>
+		<div ng-controller='kanbanController as k'>
+			<form ng-submit="k.add()" class="form col-md-6 offset-md-3 mb-4">
+				<label for="nombre">Nombre:</label>
+				<input name="nombre" type="text" ng-model="to2.name" class="form-control mb-2">
+				<span>Descripcion:</span>
+				<input type="text" ng-model="to2.desc" class="form-control mb-2">
+				<input type="submit" value="Add" class="btn btn-success col-md-2 float-right">
+			</form>
+			<ul class="row col-md-6 offset-md-3">
+				<div class="col-sm-4 list-item">
+					<h3>To do</h3>
+					<li ng-repeat="task in k.tasks | filter:{ status:1}">
+						<h5>Tarea #{{task.index+1}}</h5>
+						<p>Name: {{task.name}}</p>
+						<p>Description: {{task.desc}}</p>
+						<button class="btn btn-success" ng-click="k.next(task.index)">Next</button>
+					</li>
+				</div>
+				<div class="col-sm-4 list-item">
+					<h3>Doing</h3>
+					<li ng-repeat="task in k.tasks | filter:{ status:2}">
+						<h5>Tarea #{{task.index+1}}</h5>
+						<p>Name: {{task.name}}</p>
+						<p>Description: {{task.desc}}</p>
+                        <button class="btn btn-success" ng-click="k.previous(task.index)">Previous</button>
+                        <button class="btn btn-success" ng-click="k.next(task.index)">Next</button>
+					</li>
+				</div>
+				<div class="col-sm-4 list-item">
+					<h3>Done</h3>
+					<li ng-repeat="task in k.tasks | filter:{ status:3}">
+						<h5>Tarea #{{task.index+1}}</h5>
+						<p>Name: {{task.name}}</p>
+                        <p>Description: {{task.desc}}</p>
+                        <button class="btn btn-success" ng-click="k.previous(task.index)">Previous</button>
+					</li>
+				</div>
+			</ul>
+		</div>
+	</body>
+</html>
